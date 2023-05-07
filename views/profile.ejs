@@ -1,64 +1,93 @@
 <!doctype html>
 <html>
 <head>
-    <title>21 Savage Fan Site</title>
+    <title>Cardio Tracker</title>
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
     <link rel="stylesheet" href="style.css">
+    <script src="https://kit.fontawesome.com/6402ca9563.js" crossorigin="anonymous"></script>
 </head>
 <body>
 <div class="container">
 
     <div class="page-header text-center">
-        <h1><span class="fa fa-anchor"></span> Profile Page</h1>
-        <a href="/logout" class="btn btn-default btn-sm">Logout</a>
+        <h1></span>Cardio Tracker</h1>
+        <a href="/logout" class="btn btn-default btn-sm logoutBtn">Logout</a>
     </div>
 
     <div class="row">
 
         <!-- LOCAL INFORMATION -->
         <div class="col-sm-6">
-            <div class="well">
-                <h3><span class="fa fa-user"></span> Local</h3>
-
-                <% if (user.local.email) { %>
-                    <p>
-                        <strong>id</strong>: <%= user._id %><br>
-                        <strong>email</strong>: <%= user.local.email %><br>
-                        <strong>password</strong>: <%= user.local.password %>
-                    </p>
-
-                    <a href="/unlink/local" class="btn btn-default">Unlink</a>
-                <% } else { %>
-                    <a href="/connect/local" class="btn btn-default">Connect Local</a>
-                <% } %>
-
-            </div>
+            
         </div>
-        <div class="col-sm-6">
-          <h3>Messages</h3>
-          <ul class="messages">
-          <% for(var i=0; i<messages.length; i++) {%>
-            <li class="message">
-              <span><%= messages[i].name %></span>
-              <span><%= messages[i].msg %></span>
-              <span><%= messages[i].thumbUp %></span>
-              <span><i class="fa fa-thumbs-up" aria-hidden="true"></i></span>
-              <span><i class="fa fa-thumbs-down" aria-hidden="true"></i></span>
-              <span><i class="fa fa-trash" aria-hidden="true"></i></span>
-            </li>
-          <% } %>
-          </ul>
+        <div class="col-sm-6 runForm">
+          <h2>A mile a day keeps heart disease away!</h2>
+            <% if (user.local.email) { %>
+            <form action="/runner" method="POST">
+              <ul class="runsCompleted">
+                <li><input class="textInput" type="text" placeholder="Type of cardio" name="name"></li>
+                <li><input class="textInput" type="text" placeholder="Distance " name="distance"></li>
+                <li><input class="textInput" type="text" placeholder="Time" name="time"></li>
 
-          <h2>Add a message</h2>
-        <% if (user.local.email) { %>
-          <form action="/messages" method="POST">
-            <input type="text" value="<%= user.local.email %>" name="name">
-            <input type="text" placeholder="message" name="msg">
-            <button type="submit">Submit</button>
-          </form>
-        </div>
-        <% } %>
+                <!--  <div class="radioBts">
+                  <input class="easy" type="radio" name="difficulty" value="Easy">
+                  <label for="Easy">Easy</label>
+
+                  <input class="med" type="radio" name="difficulty" value="Medium">
+                  <label for="Medium">Medium</label>
+
+                  <input class="hard" type="radio" name="difficulty" value="Hard">
+                  <label for="Hard">Hard</label> 
+                </div> -->
+                
+                <li><button type="submit">Submit</button></li>
+              </ul> 
+            </form>
+            <% } %>
+          
+          
+          
+          
+            <h3>Finished Cardio</h3>
+            <!-- <h5>Click on the smiley face if you enjoyed your run!</h5> -->
+            <ul class="messages">
+            <% for(var i=0; i<runner.length; i++) {%>
+              <li class="message <%=runner[i].difficulty%>">
+                <span><%= runner[i].name %></span>
+                <span><%= runner[i].distance %></span>
+                <span><%= runner[i].time %></span>
+                <span><%= runner[i].difficulty %></span>
+               <span><i class="fa fa-trash-o" aria-hidden="true"></i></span>
+
+
+               <!-- <% if(runner[i].check === true) { %>
+                <span><i data-checkbox="true" class="fa-regular fa-face-smile checkgreen strike" aria-hidden="true"></i></span> 
+              <% } else { %>
+                <span><i data-checkbox="false" class="fa-regular fa-face-smile checkblack" aria-hidden="true"></i></span>
+              <% } %>
+              </li>
+            <% } %> -->
+            </ul>
+
+            
+
+            <div class="well hidden">
+              <h3><span class="fa fa-user"></span> Local</h3>
+
+              <% if (user.local.email) { %>
+                  <p>
+                      <strong>id</strong>: <%= user._id %><br>
+                      <strong>email</strong>: <%= user.local.email %><br>
+                      <strong>password</strong>: <%= user.local.password %>
+                  </p>
+
+                  <a href="/unlink/local" class="btn btn-default">Unlink</a>
+              <% } else { %>
+                  <a href="/connect/local" class="btn btn-default">Connect Local</a>
+              <% } %>
+
+          </div>
 
 </div>
 
